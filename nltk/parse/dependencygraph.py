@@ -129,16 +129,14 @@ class DependencyGraph(object):
         """
         return node_address in self.nodes
 
-    def draw_dot(self):
-        """
-        Returns a dot representation suitable for using with Graphviz
-        @type t:L{nltk.parse.dependencygraph.DependencyGraph}
-        @rtype C{String}
-        """
+    def to_dot(self):
+        """ Returns a Graphviz dot representation for the graph """
+
         # Start the digraph specification
         s = 'digraph G{\n'
         s += 'edge [dir=forward]\n'
         s += 'node [shape=plaintext]\n'
+
         # Draw the remaining nodes
         for head, h_node in self.nodes.iteritems():
             s += '\n%s [label="%s (%s)"]' % (h_node['address'], h_node['address'], h_node['word'])
@@ -151,8 +149,8 @@ class DependencyGraph(object):
         return s
 
     def _repr_svg_(self):
-        """Ipython magic: show SVG representation of the transducer"""
-        dot_string = self.draw_dot()
+        """Ipython magic: show SVG representation for the graph"""
+        dot_string = self.to_dot()
         format = 'svg'
         try:
             process = subprocess.Popen(['dot', '-T%s' % format], stdin=subprocess.PIPE,
