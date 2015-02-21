@@ -138,7 +138,7 @@ class DependencyGraph(object):
         s += 'node [shape=plaintext]\n'
 
         # Draw the remaining nodes
-        for head, h_node in self.nodes.iteritems():
+        for head, h_node in self.nodes.items():
             s += '\n%s [label="%s (%s)"]' % (h_node['address'], h_node['address'], h_node['word'])
             if head != 0:  # not TOP
                 if h_node['rel'] != '_':
